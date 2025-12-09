@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <a class="link-back"
+     href="{{ url_for('category', category_id=animal.category, lang=current_lang()) }}">
+    ← {{ category_info.name|l10n }}
+  </a>
+
+  <div class="detail">
+    <div class="detail-media">
+      <img src="{{ animal.image }}" alt="{{ animal.name|l10n }}">
+    </div>
+
+    <div class="detail-body">
+      <h1>{{ animal.name|l10n }}</h1>
+      <div class="meta">
+        <span class="chip">{{ t("scientific_name") }}: {{ animal.scientific_name }}</span>
+        <span class="chip">{{ t("conservation_status") }}: {{ animal.conservation_status }}</span>
+      </div>
+
+      <p class="lead">{{ animal.description|l10n }}</p>
+
+      <div class="info-block">
+        <h3>{{ t("habitat") }}</h3>
+        <p>{{ animal.habitat|l10n }}</p>
+      </div>
+
+      <div class="info-block">
+        <h3>{{ t("distribution") }}</h3>
+        <p>{{ animal.distribution|l10n }}</p>
+      </div>
+
+      {% if animal.characteristics %}
+      <div class="info-block">
+        <h3>{{ t("characteristics") }}</h3>
+        <ul>
+          {% for c in animal.characteristics %}
+            <li>{{ c }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      {% if animal.facts %}
+      <div class="info-block">
+        <h3>{{ t("facts") }}</h3>
+        <ul>
+          {% for f in animal.facts %}
+            <li>{{ f }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
