@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <a class="link-back" href="{{ url_for('index', lang=current_lang()) }}">
+    ← {{ t("back_home") }}
+  </a>
+
+  <div class="section">
+    <h1>{{ category_info.name|l10n }}</h1>
+    <p class="muted">{{ category_info.description|l10n }}</p>
+  </div>
+
+  <div class="section">
+    <h2>{{ t("animals_in_category") }}</h2>
+
+    <div class="grid">
+      {% for aid, a in animals.items() %}
+        <a class="card animal-card"
+           href="{{ url_for('animal_detail', animal_id=aid, lang=current_lang()) }}">
+          <img src="{{ a.image }}" alt="{{ a.name|l10n }}" />
+          <div class="content">
+            <h3>{{ a.name|l10n }}</h3>
+            <div class="small muted">{{ a.scientific_name }}</div>
+            <p class="muted clamp-2">{{ a.description|l10n }}</p>
+            <span class="chip">{{ a.conservation_status }}</span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
