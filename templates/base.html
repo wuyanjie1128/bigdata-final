@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="{{ current_lang() }}">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ t("site_title") }}</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="{{ url_for('index', lang=current_lang()) }}">
+        <i class="fa-solid fa-paw"></i>
+        <span>{{ t("site_title") }}</span>
+      </a>
+      <nav class="nav">
+        <a href="{{ url_for('index', lang=current_lang()) }}">{{ t("nav_home") }}</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Language Switcher (bottom-left) -->
+  <div class="lang-switcher">
+    <select id="langSelect" aria-label="Language selector">
+      {% for code, label in langs %}
+        <option value="{{ code }}" {% if code == current_lang() %}selected{% endif %}>
+          {{ label }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <script src="{{ url_for('static', filename='lang.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>
